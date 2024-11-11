@@ -1,0 +1,46 @@
+.search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.search-bar input {
+  padding: 10px;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 200px;
+  border-radius: 10px;
+  border: 1px solid #555;
+  margin-right: 10px;
+  box-sizing: border-box;
+  background-color: black;
+  color: white;
+}
+
+.App.dark-mode .search-bar input {
+  background-color: black;
+  color: white;
+}
+
+.search-bar button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #5E4DB2;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  width: auto;
+  transition: background-color 0.3s ease;
+}
+
+.search-bar button:hover {
+  background-color: #6E5DC6;
+}
+
+.search-bar input:focus {
+  border: 1px solid #007bff;
+  background-color: #444;
+}
