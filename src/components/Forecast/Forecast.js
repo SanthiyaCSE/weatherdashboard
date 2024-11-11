@@ -5,7 +5,7 @@ function Forecast({ data, unit }) {
   const convertTemp = (temp) => {
     return unit === 'c'
       ? `${temp}°C`
-      : `${(temp * 9) / 5 + 32}°F`;
+      : `${((temp * 9) / 5 + 32).toFixed(1)}°F`;
   };
 
   return (

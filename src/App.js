@@ -16,26 +16,31 @@ function App() {
   const [error, setError] = useState('');
   const [unit, setUnit] = useState('c');
   const [darkMode, setDarkMode] = useState(false);
-  const [weatherAlerts, setWeatherAlerts] = useState([]);
+  const [weatherData, setWeatherData] = useState(null);
 
   const fetchWeatherData = async (city) => {
     setLoading(true);
     setError('');
-    setWeatherAlerts([]);
 
     try {
       const response = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=${unit}`
       );
       setCurrentWeather(response.data);
-      if (response.data.alerts && response.data.alerts.length > 0) {
-        setWeatherAlerts(response.data.alerts);
-      }
     } catch (error) {
       setError('City not found');
     }
-
     setLoading(false);
+  };
+
+  const fetchWeather = (latitude, longitude) => {
+    const unitParam = unit === 'c' ? '°C' : '°F';
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=${unitParam}&appid=${API_KEY}`;
+
+    fetch(url)
+      .then(response => response.json())
+      .then(data => setWeatherData(data))
+      .catch(err => setError('Failed to fetch weather data'));
   };
 
   const fetchForecastData = async (city) => {
@@ -53,7 +58,6 @@ function App() {
           temp: item.main.temp.toFixed(1),
           description: item.weather[0].description,
         }));
-        
 
       setForecast(forecastData.slice(0, 5));
     } catch (error) {
@@ -70,6 +74,21 @@ function App() {
     fetchWeatherData(city);
     fetchForecastData(city);
   };
+  const getLocationWeather = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          fetchWeather(latitude, longitude);
+        },
+        (err) => {
+          setError('Geolocation permission denied or unavailable');
+        }
+      );
+    } else {
+      setError('Geolocation is not supported by this browser');
+    }
+  };
 
   const toggleUnit = () => {
     if (unit === 'c') {
@@ -80,6 +99,11 @@ function App() {
   };
   const toggleTheme = () => {
     setDarkMode(!darkMode);
+  };
+  const convertTemp = (temp) => {
+    return unit === 'c'
+      ? `${temp}°C`
+      : `${((temp * 9) / 5 + 32).toFixed(1)}°F`;
   };
 
   return (
@@ -92,13 +116,23 @@ function App() {
         </button>
       </header>
       <div className="main-content">
+        <button className="location" onClick={getLocationWeather}>Get Location-Based Weather</button>
         <SearchBar onSearch={handleSearch} />
-        <p>Temperature Units</p>
+        <p>Temperature Units Switch</p>
         <button className="switch-temp-btn" onClick={toggleUnit}>
-          Switch to {unit === 'c' ? '°F' : '°C'}
+          To {unit === 'c' ? '°F' : '°C'}
         </button>
-        {loading && <p>Loading...</p>}
         {error && <p style={{ color: 'red' }}>{error}</p>}
+        {weatherData && (
+          <div className="weather-info">
+            <h3>Your Location's Current Weather</h3>
+            <p>Temperature: {convertTemp(weatherData.main.temp)}</p>
+            <p>Conditions: {weatherData.weather[0].description}</p>
+            <p>Humidity: {weatherData.main.humidity}%</p>
+            <p>Wind Speed: {weatherData.wind.speed} m/s</p>
+          </div>
+        )}
+        {loading && <p>Loading...</p>}
         {currentWeather && <CurrentWeather data={currentWeather} unit={unit} />}
         {forecast.length > 0 && <Forecast data={forecast} unit={unit} />}
       </div>

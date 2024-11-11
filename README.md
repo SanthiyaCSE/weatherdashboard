@@ -1,70 +1,69 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Weather Dashboard
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+A weather dashboard app that allows users to view the current weather and a 5-day forecast for any city. It also includes a location-based weather feature that fetches weather data based on the user's current location using the browser's geolocation API. The app supports toggling between Celsius and Fahrenheit for temperature units, as well as a dark/light mode theme.
 
-### `npm start`
+## Features
+- **Search for City**: Enter the name of a city to view current weather and a 5-day forecast.
+- **Location-based Weather**: Get weather data for your current location by clicking a button.
+- **Temperature Unit Toggle**: Switch between Celsius and Fahrenheit.
+- **Dark/Light Mode**: Toggle between dark and light mode for better viewing.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Getting Started
 
-### `npm test`
+### Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+You need to have the following installed:
+- Node.js v22.11.0
+- npm (Node Package Manager)
 
-### `npm run build`
+### Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone this repository:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+git clone https://github.com/SanthiyaCSE/weatherdashboard.git
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Navigate to the project folder:
 
-### `npm run eject`
+```bash
+cd weatherdashboard
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3. Install the necessary dependencies:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm install
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+4. Create a `.env` file in the root of the project and add your OpenWeatherMap API key:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```plaintext
+REACT_APP_API_KEY=your-api-key-here
+```
 
-## Learn More
+You can sign up for an API key on [OpenWeatherMap](https://openweathermap.org/api).
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Running the Application
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+To run the application locally:
 
-### Code Splitting
+```bash
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+The app will be accessible at `http://localhost:3000`.
 
-### Analyzing the Bundle Size
+## Dependencies
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- `axios`: For making HTTP requests to the OpenWeatherMap API.
+- `react`: JavaScript library for building user interfaces.
 
-### Making a Progressive Web App
+## Additional Information
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- The app fetches data from the [OpenWeatherMap API](https://openweathermap.org/api).
+- The app uses geolocation to fetch weather data based on your current location.
