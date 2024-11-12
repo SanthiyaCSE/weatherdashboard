@@ -10,13 +10,14 @@ const API_KEY = process.env.REACT_APP_API_KEY;
 
 function App() {
   const [city, setCity] = useState('');
-  const [currentWeather, setCurrentWeather] = useState(null);
+  const [currentWeather, setCurrentWeather] = useState();
   const [forecast, setForecast] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [unit, setUnit] = useState('c');
   const [darkMode, setDarkMode] = useState(false);
   const [weatherData, setWeatherData] = useState(null);
+  const [history, setHistory] = useState([]);
 
   const fetchWeatherData = async (city) => {
     setLoading(true);
@@ -27,10 +28,14 @@ function App() {
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=${unit}`
       );
       setCurrentWeather(response.data);
+      addHistory({ city, data: response.data })
     } catch (error) {
       setError('City not found');
     }
     setLoading(false);
+  };
+  const addHistory = (newSearch) => {
+    setHistory((preHistory) => [...preHistory, newSearch])
   };
 
   const fetchWeather = (latitude, longitude) => {
@@ -68,7 +73,6 @@ function App() {
   };
   const handleSearch = (city) => {
     setCity(city);
-    setCurrentWeather(null);
     setForecast([]);
     setLoading(true);
     fetchWeatherData(city);
@@ -106,6 +110,7 @@ function App() {
       : `${((temp * 9) / 5 + 32).toFixed(1)}°F`;
   };
 
+
   return (
     <div className={`App ${darkMode ? 'dark-mode' : ''}`}>
       <header className="fixed-heading">
@@ -135,6 +140,17 @@ function App() {
         {loading && <p>Loading...</p>}
         {currentWeather && <CurrentWeather data={currentWeather} unit={unit} />}
         {forecast.length > 0 && <Forecast data={forecast} unit={unit} />}
+        {history && (
+          <div className="previous">
+          <h3>Previous Data</h3>
+          {history.map((item, index) => (
+            <div key={index}>
+              <h3>{item.city}</h3>
+              <p>{convertTemp(item.data.main.temp)}</p>
+            </div>
+          ))}
+        </div>)}
+        
       </div>
     </div>
   );

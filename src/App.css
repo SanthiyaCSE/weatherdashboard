@@ -65,6 +65,20 @@
   color: white;
   box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
 }
+.previous {
+  background-color: #DFD8FD;
+  margin: 20px;
+  padding: 10px 60px 20px 60px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.App.dark-mode .previous {
+  background-color: #333;
+  color: white;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+}
 
 .main-content {
   padding-top: 110px;

@@ -23,7 +23,7 @@ const CurrentWeather = ({ data, unit }) => {
         </div>
         <div className="additional-info">
           <p>Wind Speed : {data.wind.speed} m/s</p>
-          <p>Humidity : {data.main.humidity}%</p>
+          <p>Humidity : {data.main.humidity} %</p>
         </div>
       </div>
     </div>
